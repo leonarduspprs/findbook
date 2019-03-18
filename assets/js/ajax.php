@@ -398,7 +398,29 @@
 			MyTable.fnDestroy();
 			$('#data-lokasi').html(data);
 			refresh()
-			console.log(data);
 		});
 	}
+
+	// $('#form-tambah-lokasi').submit(function(e) {
+	// 	var data = $(this).serialize();
+
+	// 	$.ajax({
+	// 		method: 'POST',
+	// 		url: '<?php echo base_url('Lokasi/TambahLokasi'); ?>',
+	// 		data: data
+	// 	})
+	// 	.done(function(data) {
+	// 		var out = jQuery.parseJSON(data);
+
+	// 		tampilKota();
+	// 		if (out.status == 'form') {
+	// 			$('.form-msg').html(out.msg);
+	// 			effect_msg_form();
+	// 		} else {
+	// 			document.getElementById("form-tambah-kota").reset();
+	// 			$('#tambah-kota').modal('hide');
+	// 			$('.msg').html(out.msg);
+	// 			effect_msg();
+	// 		}
+	// 	})
 </script>

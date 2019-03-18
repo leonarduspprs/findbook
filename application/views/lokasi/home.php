@@ -5,7 +5,7 @@
 <div class="box">
   <div class="box-header">
     <div class="col-md-6">
-        <button class="form-control btn btn-primary" data-toggle="modal" data-target="#tambah-kota"><i class="glyphicon glyphicon-plus-sign"></i> Tambah Data</button>
+        <button class="form-control btn btn-primary" data-toggle="modal" data-target="#tambah-lokasi"><i class="glyphicon glyphicon-plus-sign"></i> Tambah Data</button>
     </div>
     <div class="col-md-3">
         <a href="<?php echo base_url('Kota/export'); ?>" class="form-control btn btn-default"><i class="glyphicon glyphicon glyphicon-floppy-save"></i> Export Data Excel</a>
@@ -30,4 +30,15 @@
     </table>
   </div>
 </div>
+
+<?php echo $modal_tambah_lokasi; ?>
+
+<div id="tempat-modal"></div>
+
+<?php show_my_confirm('konfirmasiHapus', 'hapus-dataKota', 'Hapus Data Ini?', 'Ya, Hapus Data Ini'); ?>
+<?php
+  $data['judul'] = 'Kota';
+  $data['url'] = 'Kota/import';
+  echo show_my_modal('modals/modal_import', 'import-kota', $data);
+?>
 
