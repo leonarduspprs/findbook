@@ -1,0 +1,2 @@
+project ini digunakan untuk menemukan data tentang karyawan yang ada di icon+.
+diharapkan dengan adanya aplikasi ini dapat memudahkan pencarian data karyawan icon+. :)
