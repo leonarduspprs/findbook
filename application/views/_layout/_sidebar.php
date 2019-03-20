@@ -47,7 +47,7 @@
         </a>
       </li>
 
-      <li <?php if ($page == 'Lokasi') {echo 'class="active"';} ?>>
+      <li <?php if ($page == 'lokasi') {echo 'class="active"';} ?>>
         <a href="<?php echo base_url('Lokasi'); ?>">
           <i class="fa fa-location-arrow"></i>
           <span>Data Lokasi</span>
