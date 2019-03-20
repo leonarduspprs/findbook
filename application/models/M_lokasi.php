@@ -10,11 +10,20 @@ class M_lokasi extends CI_Model {
 
 		return $data->result();
 	}
-	public function insert() {
 
-		$sql = "INSERT INTO tb_lokasi VALUES('','" .$data['kota'] ."')";
+	public function select_by_id($id) {
 
-		$this->db->query($sql);
+		$data = $this->db->query("select * from tb_lokasi where id_lokasi = '".$id."'   ");
+
+		return $data->row();
+	}
+
+	public function insert($data) {
+
+		
+		$this->db->insert('tb_lokasi', $data);
+
+
 
 		return $this->db->affected_rows();
 
@@ -25,6 +34,24 @@ class M_lokasi extends CI_Model {
 		
 		return $this->db->affected_rows();
 	}
+
+	public function update($data) {
+		$sql = "UPDATE tb_lokasi SET lokasi='" .$data['lokasi'] ."' WHERE id_lokasi ='" .$data['id'] ."'";
+
+		$this->db->query($sql);
+
+		return $this->db->affected_rows();
+	}
+
+	public function delete($id) {
+		$sql = "DELETE FROM tb_lokasi WHERE id_lokasi='" .$id ."'";
+
+		$this->db->query($sql);
+
+		return $this->db->affected_rows();
+	}
+
+	
 
 }
 

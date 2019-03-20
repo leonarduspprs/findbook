@@ -16,7 +16,6 @@ class Lokasi extends AUTH_Controller {
 		$data['deskripsi']	= "Manage Data Lokasi";
 
 		$data['modal_tambah_lokasi'] = show_my_modal('modals/modal_tambah_lokasi','tambah-lokasi',$data);
-		
 
 		$this->template->views('lokasi/home', $data); 
 	}
@@ -26,7 +25,7 @@ class Lokasi extends AUTH_Controller {
 		$this->load->view('lokasi/list_data', $data);
 	}
 
-	public function TambahKota() {
+	public function prosesTambah() {
 		$this->form_validation->set_rules('lokasi', 'lokasi', 'trim|required');
 
 		$data 	= $this->input->post();
@@ -35,10 +34,10 @@ class Lokasi extends AUTH_Controller {
 
 			if ($result > 0) {
 				$out['status'] = '';
-				$out['msg'] = show_succ_msg('Data Kota Berhasil ditambahkan', '20px');
+				$out['msg'] = show_succ_msg('Data Lokasi Berhasil ditambahkan', '20px');
 			} else {
 				$out['status'] = '';
-				$out['msg'] = show_err_msg('Data Kota Gagal ditambahkan', '20px');
+				$out['msg'] = show_err_msg('Data Lokasi Gagal ditambahkan', '20px');
 			}
 		} else {
 			$out['status'] = 'form';
@@ -48,15 +47,51 @@ class Lokasi extends AUTH_Controller {
 		echo json_encode($out);
 	}
 
+	public function update() {
+		$data['userdata'] 	= $this->userdata;
+
+		$id 				= $_POST['id'];
+		$data['dataLokasi']= $this->M_lokasi->select_by_id($id);
+
+		echo show_my_modal('modals/modal_update_lokasi', 'update-lokasi', $data);
+	}
+
+	public function prosesUpdate() {
+		$this->form_validation->set_rules('lokasi', 'lokasi', 'trim|required');
+
+		$data 	= $this->input->post();
+		if ($this->form_validation->run() == TRUE) {
+			$result = $this->M_lokasi->update($data);
+
+			if ($result > 0) {
+				$out['status'] = '';
+				$out['msg'] = show_succ_msg('Data Lokasi Berhasil diupdate', '20px');
+			} else {
+				$out['status'] = '';
+				$out['msg'] = show_succ_msg('Data Lokasi Gagal diupdate', '20px');
+			}
+		} else {
+			$out['status'] = 'form';
+			$out['msg'] = show_err_msg(validation_errors());
+		}
+
+		echo json_encode($out);
+	}
+
+	public function delete() {
+		$id = $_POST['id'];
+		$result = $this->M_lokasi->delete($id);
 		
-
-
-
-
-
-
+		if ($result > 0) {
+			echo show_succ_msg('Data Kota Berhasil dihapus', '20px');
+		} else {
+			echo show_err_msg('Data Kota Gagal dihapus', '20px');
+		}
+	}
 
 }
+
+	
 
 /* End of file lokasi.php */
 /* Location: ./application/controllers/Kota.php */

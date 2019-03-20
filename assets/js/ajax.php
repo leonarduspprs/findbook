@@ -12,6 +12,9 @@
 		tampilPegawai();
 		tampilPosisi();
 		tampilKota();
+		tampilLokasi();
+
+
 		<?php
 			if ($this->session->flashdata('msg') != '') {
 				echo "effect_msg();";
@@ -387,40 +390,215 @@
 	  $('.form-msg').html('');
 	})
 
-
-	//Lokasi
-
-	tampilLokasi();
-
-
+	//coba
+	//
+	//
+	//
+	//
 	function tampilLokasi() {
 		$.get('<?php echo base_url('Lokasi/tampil'); ?>', function(data) {
 			MyTable.fnDestroy();
 			$('#data-lokasi').html(data);
-			refresh()
+			refresh();
 		});
 	}
+
+	var id_lokasi;
+	$(document).on("click", ".konfirmasiHapus-lokasi", function() {
+		id_lokasi = $(this).attr("data-id");
+	})
+	$(document).on("click", ".hapus-dataLokasi", function() {
+		var id = id_lokasi;
+		
+		$.ajax({
+			method: "POST",
+			url: "<?php echo base_url('Lokasi/delete'); ?>",
+			data: "id=" +id
+		})
+		.done(function(data) {
+			$('#konfirmasiHapus').modal('hide');
+			tampilLokasi();
+			$('.msg').html(data);
+			effect_msg();
+		})
+	})
+
+	$(document).on("click", ".update-dataLokasi", function() {
+		var id = $(this).attr("data-id");
+		
+		$.ajax({
+			method: "POST",
+			url: "<?php echo base_url('Lokasi/update'); ?>",
+			data: "id=" +id
+		})
+		.done(function(data) {
+			$('#tempat-modal').html(data);
+			$('#update-lokasi').modal('show');
+		})
+	})
+
+	$(document).on("click", ".detail-dataLokasi", function() {
+		var id = $(this).attr("data-id");
+		
+		$.ajax({
+			method: "POST",
+			url: "<?php echo base_url('Lokasi/detail'); ?>",
+			data: "id=" +id
+		})
+		.done(function(data) {
+			$('#tempat-modal').html(data);
+			$('#tabel-detail').dataTable({
+				  "paging": true,
+				  "lengthChange": false,
+				  "searching": true,
+				  "ordering": true,
+				  "info": true,
+				  "autoWidth": false
+				});
+			$('#detail-lokasi').modal('show');
+		})
+	})
+
+	$('#form-tambah-lokasi').submit(function(e) {
+		var data = $(this).serialize();
+
+		$.ajax({
+			method: 'POST',
+			url: '<?php echo base_url('Lokasi/prosesTambah'); ?>',
+			data: data
+		})
+		.done(function(data) {
+			var out = jQuery.parseJSON(data);
+
+			tampilLokasi();
+			if (out.status == 'form') {
+				$('.form-msg').html(out.msg);
+				effect_msg_form();
+			} else {
+				document.getElementById("form-tambah-lokasi").reset();
+				$('#tambah-lokasi').modal('hide');
+				$('.msg').html(out.msg);
+				effect_msg();
+			}
+		})
+		
+		e.preventDefault();
+	});
+
+	$(document).on('submit', '#form-update-lokasi', function(e){
+		var data = $(this).serialize();
+
+		$.ajax({
+			method: 'POST',
+			url: '<?php echo base_url('Lokasi/prosesUpdate'); ?>',
+			data: data
+		})
+		.done(function(data) {
+			var out = jQuery.parseJSON(data);
+
+			tampilLokasi();
+			if (out.status == 'form') {
+				$('.form-msg').html(out.msg);
+				effect_msg_form();
+			} else {
+				document.getElementById("form-update-lokasi").reset();
+				$('#update-lokasi').modal('hide');
+				$('.msg').html(out.msg);
+				effect_msg();
+			}
+		})
+		
+		e.preventDefault();
+	});
+
+	$('#tambah-lokasi').on('hidden.bs.modal', function () {
+	  $('.form-msg').html('');
+	})
+
+	$('#update-lokasi').on('hidden.bs.modal', function () {
+	  $('.form-msg').html('');
+	})
+
+	//akhirdaricoba
+
+	//Lokasi
+	// function tampilLokasi() {
+	// 	$.get('<?php echo base_url('Lokasi/tampil'); ?>', function(data) {
+	// 		MyTable.fnDestroy();
+	// 		$('#data-lokasi').html(data);
+	// 		refresh()
+	// 	});
+	// }
 
 	// $('#form-tambah-lokasi').submit(function(e) {
 	// 	var data = $(this).serialize();
 
 	// 	$.ajax({
 	// 		method: 'POST',
-	// 		url: '<?php echo base_url('Lokasi/TambahLokasi'); ?>',
+	// 		url: '<?php echo base_url('Lokasi/prosesTambah'); ?>',
 	// 		data: data
 	// 	})
 	// 	.done(function(data) {
 	// 		var out = jQuery.parseJSON(data);
 
-	// 		tampilKota();
+	// 		tampilLokasi();
 	// 		if (out.status == 'form') {
 	// 			$('.form-msg').html(out.msg);
 	// 			effect_msg_form();
 	// 		} else {
-	// 			document.getElementById("form-tambah-kota").reset();
-	// 			$('#tambah-kota').modal('hide');
+	// 			document.getElementById("form-tambah-lokasi").reset();
+	// 			$('#tambah-lokasi').modal('hide');
 	// 			$('.msg').html(out.msg);
 	// 			effect_msg();
 	// 		}
 	// 	})
+		
+	// 	e.preventDefault();
+	// });
+
+	// $(document).on("click", ".update-dataLokasi", function() {
+	// 	var id = $(this).attr("data-id");
+		
+	// 	$.ajax({
+	// 		method: "POST",
+	// 		url: "<?php echo base_url('Lokasi/update'); ?>",
+	// 		data: "id=" +id
+	// 	})
+	// 	.done(function(data) {
+	// 		$('#tempat-modal').html(data);
+	// 		$('#update-lokasi').modal('show');
+	// 	})
+	// })
+
+	//akhir lokasi
+
+
+	// $('#form-tambah-lokasi').submit(function(e) {
+	// 	var data = $(this).serialize();
+
+	// 	$.ajax({
+	// 		method: 'POST',
+	// 		url: '<?php echo base_url('lokasi/prosesTambah'); ?>',
+	// 		data: data
+	// 	})
+	// 	.done(function(data) {
+	// 		var out = jQuery.parseJSON(data);
+
+	// 		tampilLokasi();
+	// 		if (out.status == 'form') {
+	// 			$('.form-msg').html(out.msg);
+	// 			effect_msg_form();
+	// 		} else {
+	// 			document.getElementById("form-tambah-lokasi").reset();
+	// 			$('#tambah-lokasi').modal('hide');
+	// 			$('.msg').html(out.msg);
+	// 			effect_msg();
+	// 		}
+	// 	})
+		
+	// 	e.preventDefault();
+	// });
+
+
+
 </script>
