@@ -16,8 +16,6 @@
       <td><?php echo $pegawai->id_lokasi; ?></td>
       <td class="text-center" style="min-width:230px;">
        
-     
-
         <button class="btn btn-warning update-dataPegawai" data-id="<?php echo $pegawai->id; ?>"><i class="glyphicon glyphicon-repeat"></i> Update</button>
        
         <button class="btn btn-danger konfirmasiHapus-tb_contact" data-id="<?php echo $pegawai->id; ?>" data-toggle="modal" data-target="#konfirmasiHapus"><i class="glyphicon glyphicon-remove-sign"></i> Delete</button>
@@ -27,25 +25,3 @@
     $no++;
   }
 ?>
-
-
-<!-- <?php
-  $no = 1;
-  foreach ($dataPegawai as $Pegawai) {
-    ?>
-    <tr>
-      <td><?php echo $no; ?></td>
-      <td><?php echo $Pegawai->nama; ?></td>
-      <td class="text-center" style="min-width:230px;">
-        
-         <button class="btn btn-warning update-dataPegawai" data-id="<?php echo $Pegawai->id; ?>"><i class="glyphicon glyphicon-repeat"></i> Update</button> 
-
-        <button class="btn btn-danger konfirmasiHapus-pegawai" data-id="<?php echo $Pegawai->id; ?>" data-toggle="modal" data-target="#konfirmasiHapus"><i class="glyphicon glyphicon-remove-sign"></i> Delete</button>
-        
-        <button class="btn btn-info detail-dataPegawai" data-id="<?php echo $Pegawai->id; ?>"><i class="glyphicon glyphicon-info-sign"></i> Detail</button>
-      </td>
-    </tr>
-    <?php
-    $no++;
-  }
-?> -->

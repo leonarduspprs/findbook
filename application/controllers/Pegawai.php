@@ -5,16 +5,13 @@ class Pegawai extends AUTH_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('M_pegawai');
-		$this->load->model('M_posisi');
-		$this->load->model('M_kota');
+		
 	}
 
 	public function index() {
 		$data['userdata'] = $this->userdata;
 		$data['dataPegawai'] = $this->M_pegawai->select_all();
-		$data['dataPosisi'] = $this->M_posisi->select_all();
-		$data['dataKota'] = $this->M_kota->select_all();
-
+	
 		$data['page'] = "pegawai";
 		$data['judul'] = "Data Pegawai";
 		$data['deskripsi'] = "Manage Data Pegawai";
@@ -55,21 +52,28 @@ class Pegawai extends AUTH_Controller {
 	}
 
 	public function update() {
+		$data['userdata'] = $this->userdata;
+		
 		$id = trim($_POST['id']);
 
 		$data['dataPegawai'] = $this->M_pegawai->select_by_id($id);
-		$data['dataPosisi'] = $this->M_posisi->select_all();
-		$data['dataKota'] = $this->M_kota->select_all();
-		$data['userdata'] = $this->userdata;
-
+		
 		echo show_my_modal('modals/modal_update_pegawai', 'update-pegawai', $data);
 	}
 
 	public function prosesUpdate() {
-		$this->form_validation->set_rules('nama', 'Nama', 'trim|required');
-		$this->form_validation->set_rules('kota', 'Kota', 'trim|required');
-		$this->form_validation->set_rules('jk', 'Jenis Kelamin', 'trim|required');
-		$this->form_validation->set_rules('posisi', 'Posisi', 'trim|required');
+		$this->form_validation->set_rules('nama', 'nama', 'trim|required');
+		$this->form_validation->set_rules('email', 'email', 'trim|required');
+		$this->form_validation->set_rules('divisi', 'divisi', 'trim|required');
+		$this->form_validation->set_rules('nohp', 'nohp', 'trim|required');
+		$this->form_validation->set_rules('ext', 'ext', 'trim|required');
+		$this->form_validation->set_rules('status_id', 'status_id', 'trim|required');
+		$this->form_validation->set_rules('input', 'input', 'trim|required');
+		$this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
+		$this->form_validation->set_rules('jam', 'jam', 'trim|required');
+		$this->form_validation->set_rules('upd', 'upd', 'trim|required');
+		$this->form_validation->set_rules('tglup', 'tglup', 'trim|required');
+		$this->form_validation->set_rules('id_lokasi', 'lokasi', 'trim|required');
 
 		$data = $this->input->post();
 		if ($this->form_validation->run() == TRUE) {
@@ -100,6 +104,8 @@ class Pegawai extends AUTH_Controller {
 			echo show_err_msg('Data Pegawai Gagal dihapus', '20px');
 		}
 	}
+
+	
 
 	public function export() {
 		error_reporting(E_ALL);

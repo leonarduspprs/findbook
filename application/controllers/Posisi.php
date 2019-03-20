@@ -57,7 +57,9 @@ class Posisi extends AUTH_Controller {
 	}
 
 	public function prosesUpdate() {
+		$this->form_validation->set_rules('id', 'id', 'trim|required');
 		$this->form_validation->set_rules('posisi', 'posisi', 'trim|required');
+
 
 		$data 	= $this->input->post();
 		if ($this->form_validation->run() == TRUE) {
